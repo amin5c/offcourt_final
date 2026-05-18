@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — OffCourt</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="shop">
+
+  <!-- NAV BAR -->
+  <nav class="nav" id="nav">
+    <a class="nav-logo" href="../index.html">Off<span>Court</span></a>
+    <div class="nav-links">
+      <a href="../index.html"       id="nl-home">Home</a>
+      <a href="shop.html"           id="nl-shop">Shop</a>
+      <a href="sale.html"           id="nl-sale">Sale</a>
+      <a href="about.html"          id="nl-about">About</a>
+      <a href="contact.html"        id="nl-contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div id="nav-auth-slot"></div>
+      <button class="cart-btn" onclick="openCart()">🛒 <span class="cbadge" id="cbadge">0</span></button>
+      <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mob-menu" id="mob-menu">
+    <a href="../index.html" id="ml-home"    onclick="closeMob()">Home</a>
+    <a href="shop.html"     id="ml-shop"    onclick="closeMob()">Shop</a>
+    <a href="sale.html"     id="ml-sale"    onclick="closeMob()">Sale</a>
+    <a href="about.html"    id="ml-about"   onclick="closeMob()">About</a>
+    <a href="contact.html"  id="ml-contact" onclick="closeMob()">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>All Sneakers</h1>
+      <p>Browse our full collection — 30 styles across 5 categories</p>
+    </div>
+
+    <!-- FILTER BAR - lets you sort and filter the product list -->
+    <div class="filter-bar">
+      <select class="sel" id="f-cat" onchange="applyFilters()">
+        <option value="">All Categories</option>
+        <option value="running">Running</option>
+        <option value="casual">Casual</option>
+        <option value="basketball">Basketball</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="limited">Limited</option>
+      </select>
+      <select class="sel" id="f-brand" onchange="applyFilters()">
+        <option value="">All Brands</option>
+        <option value="Nike">Nike</option>
+        <option value="Adidas">Adidas</option>
+        <option value="Jordan">Jordan</option>
+        <option value="New Balance">New Balance</option>
+        <option value="ASICS">ASICS</option>
+        <option value="Vans">Vans</option>
+        <option value="Converse">Converse</option>
+        <option value="On">On</option>
+      </select>
+      <select class="sel" id="f-sort" onchange="applyFilters()">
+        <option value="">Sort: Default</option>
+        <option value="price-asc">Price: Low → High</option>
+        <option value="price-desc">Price: High → Low</option>
+        <option value="rating">Top Rated</option>
+      </select>
+      <span class="res-count" id="res-count"></span>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div style="padding:24px">
+      <div id="shop-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="f-brand"><h3>Off<span>Court</span></h3><p>Premium sneakers for the culture.</p></div>
+      <div class="f-col"><h4>Shop</h4><a href="shop.html">All Sneakers</a><a href="sale.html">Sale</a></div>
+      <div class="f-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    </footer>
+    <div class="f-btm"><span>© 2025 OffCourt.</span></div>
+  </div>
+
+  <!-- CART + CHECKOUT -->
+  <div class="overlay" id="overlay" onclick="closeCart()"></div>
+  <aside class="cdr" id="cdr">
+    <div class="cdr-h"><div class="cdr-title">Your Cart</div><button class="xb" onclick="closeCart()">✕</button></div>
+    <div class="cdr-items" id="cdr-items"></div>
+    <div id="cdr-foot" style="display:none">
+      <div class="cdr-foot-inner">
+        <div class="cdr-row"><span>Subtotal</span><span id="cdr-sub">$0</span></div>
+        <div class="cdr-row"><span>Shipping</span><span id="cdr-ship">Free</span></div>
+        <div class="cdr-row big"><span>Total</span><span id="cdr-tot">$0</span></div>
+        <button class="btn-gold" style="width:100%;margin-top:14px;padding:14px" onclick="openCheckout()">Checkout →</button>
+      </div>
+    </div>
+  </aside>
+  <div class="mbg" id="mbg">
+    <div class="modal">
+      <div class="modal-h"><div class="modal-title" id="modal-title">Checkout</div><button class="xb" onclick="closeModal()">✕</button></div>
+      <div class="modal-body" id="modal-body">
+        <div class="frow">
+          <div class="fg"><label>First Name</label><input class="fi" id="o-fn" type="text" placeholder="First name" /></div>
+          <div class="fg"><label>Last Name</label><input class="fi" id="o-ln" type="text" placeholder="Last name" /></div>
+        </div>
+        <div class="fg"><label>Email</label><input class="fi" id="o-em" type="email" placeholder="your@email.com" /></div>
+        <div class="fg"><label>Address</label><input class="fi" id="o-ad" type="text" placeholder="Street address" /></div>
+        <div class="frow">
+          <div class="fg"><label>City</label><input class="fi" id="o-ci" type="text" placeholder="City" /></div>
+          <div class="fg"><label>PIN Code</label><input class="fi" id="o-pi" type="text" placeholder="160001" /></div>
+        </div>
+        <div class="fg" style="margin-top:16px"><label>Card Number</label><input class="fi" id="o-cn" type="text" placeholder="4111 1111 1111 1111" maxlength="19" oninput="fmtCard(this)" /></div>
+        <div class="frow">
+          <div class="fg"><label>Expiry</label><input class="fi" id="o-ex" type="text" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)" /></div>
+          <div class="fg"><label>CVV</label><input class="fi" id="o-cv" type="password" placeholder="•••" maxlength="3" /></div>
+        </div>
+        <button class="btn-gold" style="width:100%;margin-top:8px;padding:14px" onclick="placeOrder()">Place Order →</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/products.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/nav.js"></script>
+  <script>
+    // Read URL params to pre-select filters (e.g. shop.html?cat=running)
+    function getParam(key) {
+      return new URLSearchParams(window.location.search).get(key) || '';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Pre-fill filter dropdowns from URL
+      var cat   = getParam('cat');
+      var brand = getParam('brand');
+      if (cat)   document.getElementById('f-cat').value   = cat;
+      if (brand) document.getElementById('f-brand').value = brand;
+      applyFilters();
+    });
+
+    // Filter and sort products, then re-render the grid
+    function applyFilters() {
+      var cat   = document.getElementById('f-cat').value;
+      var brand = document.getElementById('f-brand').value;
+      var sort  = document.getElementById('f-sort').value;
+
+      // Start with all products, then narrow down
+      var list = PRODUCTS.filter(function(p) {
+        if (cat   && p.cat   !== cat)   return false;
+        if (brand && p.brand !== brand) return false;
+        return true;
+      });
+
+      // Sort
+      if (sort === 'price-asc')  list.sort(function(a,b) { return a.price - b.price; });
+      if (sort === 'price-desc') list.sort(function(a,b) { return b.price - a.price; });
+      if (sort === 'rating')     list.sort(function(a,b) { return b.rating - a.rating; });
+
+      document.getElementById('res-count').textContent = list.length + ' products';
+      document.getElementById('shop-grid').innerHTML = list.length
+        ? list.map(function(p, i) { return cardHTML(p, i * 0.03); }).join('')
+        : '<p style="color:var(--muted);padding:40px">No products match your filters.</p>';
+    }
+  </script>
+</body>
+</html>

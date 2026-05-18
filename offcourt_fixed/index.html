@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OffCourt — Premium Sneakers</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="home">
+
+  <!-- NAV BAR -->
+  <nav class="nav" id="nav">
+    <a class="nav-logo" href="index.html">Off<span>Court</span></a>
+    <div class="nav-links">
+      <a href="index.html"         id="nl-home">Home</a>
+      <a href="pages/shop.html"    id="nl-shop">Shop</a>
+      <a href="pages/sale.html"    id="nl-sale">Sale</a>
+      <a href="pages/about.html"   id="nl-about">About</a>
+      <a href="pages/contact.html" id="nl-contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div id="nav-auth-slot"></div>
+      <button class="cart-btn" onclick="openCart()" aria-label="Cart">
+        🛒 <span class="cbadge" id="cbadge">0</span>
+      </button>
+      <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mob-menu" id="mob-menu">
+    <a href="index.html"         id="ml-home"    onclick="closeMob()">Home</a>
+    <a href="pages/shop.html"    id="ml-shop"    onclick="closeMob()">Shop</a>
+    <a href="pages/sale.html"    id="ml-sale"    onclick="closeMob()">Sale</a>
+    <a href="pages/about.html"   id="ml-about"   onclick="closeMob()">About</a>
+    <a href="pages/contact.html" id="ml-contact" onclick="closeMob()">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="hero-tag">✦ New Season — SS25</div>
+        <h1>Step Into<br><em>Legend</em></h1>
+        <p>Premium sneakers for those who refuse to blend in. From courts to streets.</p>
+        <div class="hero-btns">
+          <a href="pages/shop.html" class="btn-gold">Shop Collection</a>
+          <a href="pages/sale.html" class="btn-outline">View Sale</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&q=80" alt="Premium sneaker" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80'" />
+      </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="section">
+      <div class="sec-head">
+        <div>
+          <div class="sec-tag">✦ Editor's Pick</div>
+          <div class="sec-title">Featured Drops</div>
+        </div>
+        <a href="pages/shop.html" class="btn-link">View All →</a>
+      </div>
+      <div id="feat-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;"></div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="section">
+      <div class="sec-tag">✦ Browse By</div>
+      <div class="sec-title">Categories</div>
+      <div class="cat-pills">
+        <a class="cat-pill" href="pages/shop.html?cat=running">    <div class="ci">🏃</div><div class="cn">Running</div>   <div class="cc">26 styles</div></a>
+        <a class="cat-pill" href="pages/shop.html?cat=casual">     <div class="ci">☕</div><div class="cn">Casual</div>    <div class="cc">38 styles</div></a>
+        <a class="cat-pill" href="pages/shop.html?cat=basketball"> <div class="ci">🏀</div><div class="cn">Basketball</div><div class="cc">18 styles</div></a>
+        <a class="cat-pill" href="pages/shop.html?cat=lifestyle">  <div class="ci">🌆</div><div class="cn">Lifestyle</div> <div class="cc">45 styles</div></a>
+        <a class="cat-pill" href="pages/shop.html?cat=limited">    <div class="ci">⭐</div><div class="cn">Limited</div>   <div class="cc">12 styles</div></a>
+      </div>
+    </section>
+
+    <!-- PROMO BANNER -->
+    <div class="promo-banner">
+      <div class="sec-tag" style="color:var(--gold)">🔥 Limited Time</div>
+      <div class="sec-title" style="margin-bottom:8px">Up to 40% Off Sale Styles</div>
+      <p>Fresh markdowns on premium kicks. While stocks last.</p>
+      <a href="pages/sale.html" class="btn-gold">Shop Sale →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="f-brand"><h3>Off<span>Court</span></h3><p>Premium sneakers for the culture. Every pair tells a story.</p></div>
+      <div class="f-col"><h4>Shop</h4><a href="pages/shop.html">All Sneakers</a><a href="pages/sale.html">Sale</a></div>
+      <div class="f-col"><h4>Company</h4><a href="pages/about.html">About</a><a href="pages/contact.html">Contact</a></div>
+      <div class="f-col"><h4>Help</h4><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Size Guide</a></div>
+    </footer>
+    <div class="f-btm"><span>© 2025 OffCourt. All rights reserved.</span><span>Made for sneakerheads ❤️</span></div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="overlay" id="overlay" onclick="closeCart()"></div>
+  <aside class="cdr" id="cdr">
+    <div class="cdr-h"><div class="cdr-title">Your Cart</div><button class="xb" onclick="closeCart()">✕</button></div>
+    <div class="cdr-items" id="cdr-items"></div>
+    <div id="cdr-foot" style="display:none">
+      <div class="cdr-foot-inner">
+        <div class="cdr-row"><span>Subtotal</span><span id="cdr-sub">$0</span></div>
+        <div class="cdr-row"><span>Shipping</span><span id="cdr-ship">Free</span></div>
+        <div class="cdr-row big"><span>Total</span><span id="cdr-tot">$0</span></div>
+        <button class="btn-gold" style="width:100%;margin-top:14px;padding:14px" onclick="openCheckout()">Checkout →</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="mbg" id="mbg">
+    <div class="modal">
+      <div class="modal-h"><div class="modal-title" id="modal-title">Checkout</div><button class="xb" onclick="closeModal()">✕</button></div>
+      <div class="modal-body" id="modal-body">
+        <div class="frow">
+          <div class="fg"><label>First Name</label><input class="fi" id="o-fn" type="text" placeholder="First name" /></div>
+          <div class="fg"><label>Last Name</label><input class="fi" id="o-ln" type="text" placeholder="Last name" /></div>
+        </div>
+        <div class="fg"><label>Email</label><input class="fi" id="o-em" type="email" placeholder="your@email.com" /></div>
+        <div class="fg"><label>Address</label><input class="fi" id="o-ad" type="text" placeholder="Street address" /></div>
+        <div class="frow">
+          <div class="fg"><label>City</label><input class="fi" id="o-ci" type="text" placeholder="City" /></div>
+          <div class="fg"><label>PIN Code</label><input class="fi" id="o-pi" type="text" placeholder="160001" /></div>
+        </div>
+        <div class="fg" style="margin-top:16px"><label>Card Number</label><input class="fi" id="o-cn" type="text" placeholder="4111 1111 1111 1111" maxlength="19" oninput="fmtCard(this)" /></div>
+        <div class="frow">
+          <div class="fg"><label>Expiry</label><input class="fi" id="o-ex" type="text" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)" /></div>
+          <div class="fg"><label>CVV</label><input class="fi" id="o-cv" type="password" placeholder="•••" maxlength="3" /></div>
+        </div>
+        <button class="btn-gold" style="width:100%;margin-top:8px;padding:14px" onclick="placeOrder()">Place Order →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="js/products.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var featured = PRODUCTS.filter(function(p) { return p.feat; }).slice(0, 8);
+      document.getElementById('feat-grid').innerHTML = featured.map(function(p, i) {
+        return cardHTML(p, i * 0.05);
+      }).join('');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — OffCourt</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="about">
+
+  <nav class="nav" id="nav">
+    <a class="nav-logo" href="../index.html">Off<span>Court</span></a>
+    <div class="nav-links">
+      <a href="../index.html" id="nl-home">Home</a>
+      <a href="shop.html"     id="nl-shop">Shop</a>
+      <a href="sale.html"     id="nl-sale">Sale</a>
+      <a href="about.html"    id="nl-about">About</a>
+      <a href="contact.html"  id="nl-contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div id="nav-auth-slot"></div>
+      <button class="cart-btn" onclick="openCart()">🛒 <span class="cbadge" id="cbadge">0</span></button>
+      <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mob-menu" id="mob-menu">
+    <a href="../index.html" id="ml-home"    onclick="closeMob()">Home</a>
+    <a href="shop.html"     id="ml-shop"    onclick="closeMob()">Shop</a>
+    <a href="sale.html"     id="ml-sale"    onclick="closeMob()">Sale</a>
+    <a href="about.html"    id="ml-about"   onclick="closeMob()">About</a>
+    <a href="contact.html"  id="ml-contact" onclick="closeMob()">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <div class="page-header">
+      <h1>Our Story</h1>
+      <p>OffCourt was founded by sneakerheads, for sneakerheads.</p>
+    </div>
+
+    <!-- MISSION + VALUES -->
+    <section class="section">
+      <div class="sec-tag">✦ Who We Are</div>
+      <div class="sec-title">Built for the Culture</div>
+      <p style="color:var(--muted);max-width:620px;margin-bottom:32px;line-height:1.8">
+        OffCourt started in 2020 in a small garage with one goal: make premium sneakers accessible.
+        We curate the best kicks from the biggest brands so you can step out in style every day.
+      </p>
+
+      <div class="about-grid">
+        <div class="info-card">
+          <div class="ic-icon">👟</div>
+          <h3>Curated Selection</h3>
+          <p>We handpick every style we carry. If it's not worth wearing, it's not in our store.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">✅</div>
+          <h3>100% Authentic</h3>
+          <p>Every pair is verified authentic before it ships. No fakes, ever.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">🚀</div>
+          <h3>Fast Shipping</h3>
+          <p>Orders placed before 2pm ship same day. Most arrive in 2–3 business days.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-icon">🔄</div>
+          <h3>Easy Returns</h3>
+          <p>Not the right fit? Return within 30 days, no questions asked.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section">
+      <div class="sec-tag">✦ By the Numbers</div>
+      <div class="sec-title">OffCourt in Numbers</div>
+      <div class="stat-row">
+        <div class="stat-box"><div class="sn">50K+</div><div class="sl">Happy Customers</div></div>
+        <div class="stat-box"><div class="sn">200+</div><div class="sl">Styles Available</div></div>
+        <div class="stat-box"><div class="sn">30</div><div class="sl">Day Returns</div></div>
+        <div class="stat-box"><div class="sn">8</div><div class="sl">Top Brands</div></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="f-brand"><h3>Off<span>Court</span></h3><p>Premium sneakers for the culture.</p></div>
+      <div class="f-col"><h4>Shop</h4><a href="shop.html">All Sneakers</a><a href="sale.html">Sale</a></div>
+      <div class="f-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    </footer>
+    <div class="f-btm"><span>© 2025 OffCourt.</span></div>
+  </div>
+
+  <!-- CART (same on every page) -->
+  <div class="overlay" id="overlay" onclick="closeCart()"></div>
+  <aside class="cdr" id="cdr">
+    <div class="cdr-h"><div class="cdr-title">Your Cart</div><button class="xb" onclick="closeCart()">✕</button></div>
+    <div class="cdr-items" id="cdr-items"></div>
+    <div id="cdr-foot" style="display:none">
+      <div class="cdr-foot-inner">
+        <div class="cdr-row"><span>Subtotal</span><span id="cdr-sub">$0</span></div>
+        <div class="cdr-row"><span>Shipping</span><span id="cdr-ship">Free</span></div>
+        <div class="cdr-row big"><span>Total</span><span id="cdr-tot">$0</span></div>
+        <button class="btn-gold" style="width:100%;margin-top:14px;padding:14px" onclick="openCheckout()">Checkout →</button>
+      </div>
+    </div>
+  </aside>
+  <div class="mbg" id="mbg">
+    <div class="modal">
+      <div class="modal-h"><div class="modal-title" id="modal-title">Checkout</div><button class="xb" onclick="closeModal()">✕</button></div>
+      <div class="modal-body" id="modal-body">
+        <div class="frow"><div class="fg"><label>First Name</label><input class="fi" id="o-fn" type="text" placeholder="First name" /></div><div class="fg"><label>Last Name</label><input class="fi" id="o-ln" type="text" placeholder="Last name" /></div></div>
+        <div class="fg"><label>Email</label><input class="fi" id="o-em" type="email" placeholder="your@email.com" /></div>
+        <div class="fg"><label>Address</label><input class="fi" id="o-ad" type="text" placeholder="Street address" /></div>
+        <div class="frow"><div class="fg"><label>City</label><input class="fi" id="o-ci" type="text" placeholder="City" /></div><div class="fg"><label>PIN</label><input class="fi" id="o-pi" type="text" placeholder="160001" /></div></div>
+        <div class="fg" style="margin-top:16px"><label>Card Number</label><input class="fi" id="o-cn" type="text" placeholder="4111 1111 1111 1111" maxlength="19" oninput="fmtCard(this)" /></div>
+        <div class="frow"><div class="fg"><label>Expiry</label><input class="fi" id="o-ex" type="text" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)" /></div><div class="fg"><label>CVV</label><input class="fi" id="o-cv" type="password" placeholder="•••" maxlength="3" /></div></div>
+        <button class="btn-gold" style="width:100%;margin-top:8px;padding:14px" onclick="placeOrder()">Place Order →</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/products.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/nav.js"></script>
+</body>
+</html>

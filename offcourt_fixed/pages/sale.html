@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sale — OffCourt</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="sale">
+
+  <nav class="nav" id="nav">
+    <a class="nav-logo" href="../index.html">Off<span>Court</span></a>
+    <div class="nav-links">
+      <a href="../index.html" id="nl-home">Home</a>
+      <a href="shop.html"     id="nl-shop">Shop</a>
+      <a href="sale.html"     id="nl-sale">Sale</a>
+      <a href="about.html"    id="nl-about">About</a>
+      <a href="contact.html"  id="nl-contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div id="nav-auth-slot"></div>
+      <button class="cart-btn" onclick="openCart()">🛒 <span class="cbadge" id="cbadge">0</span></button>
+      <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mob-menu" id="mob-menu">
+    <a href="../index.html" id="ml-home"    onclick="closeMob()">Home</a>
+    <a href="shop.html"     id="ml-shop"    onclick="closeMob()">Shop</a>
+    <a href="sale.html"     id="ml-sale"    onclick="closeMob()">Sale</a>
+    <a href="about.html"    id="ml-about"   onclick="closeMob()">About</a>
+    <a href="contact.html"  id="ml-contact" onclick="closeMob()">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- SALE HEADER -->
+    <div class="sale-header">
+      <div class="sale-tag">🔥 Limited Time Sale</div>
+      <h1>Up to 40% Off</h1>
+      <p>Marked-down styles across all categories — while stocks last.</p>
+    </div>
+
+    <!-- SALE PRODUCTS (only products that have an old/original price) -->
+    <div style="padding:24px">
+      <div id="sale-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;"></div>
+    </div>
+
+    <footer class="footer">
+      <div class="f-brand"><h3>Off<span>Court</span></h3><p>Premium sneakers for the culture.</p></div>
+      <div class="f-col"><h4>Shop</h4><a href="shop.html">All Sneakers</a><a href="sale.html">Sale</a></div>
+      <div class="f-col"><h4>Company</h4><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+    </footer>
+    <div class="f-btm"><span>© 2025 OffCourt.</span></div>
+  </div>
+
+  <!-- CART + CHECKOUT (same on every page) -->
+  <div class="overlay" id="overlay" onclick="closeCart()"></div>
+  <aside class="cdr" id="cdr">
+    <div class="cdr-h"><div class="cdr-title">Your Cart</div><button class="xb" onclick="closeCart()">✕</button></div>
+    <div class="cdr-items" id="cdr-items"></div>
+    <div id="cdr-foot" style="display:none">
+      <div class="cdr-foot-inner">
+        <div class="cdr-row"><span>Subtotal</span><span id="cdr-sub">$0</span></div>
+        <div class="cdr-row"><span>Shipping</span><span id="cdr-ship">Free</span></div>
+        <div class="cdr-row big"><span>Total</span><span id="cdr-tot">$0</span></div>
+        <button class="btn-gold" style="width:100%;margin-top:14px;padding:14px" onclick="openCheckout()">Checkout →</button>
+      </div>
+    </div>
+  </aside>
+  <div class="mbg" id="mbg">
+    <div class="modal">
+      <div class="modal-h"><div class="modal-title" id="modal-title">Checkout</div><button class="xb" onclick="closeModal()">✕</button></div>
+      <div class="modal-body" id="modal-body">
+        <div class="frow">
+          <div class="fg"><label>First Name</label><input class="fi" id="o-fn" type="text" placeholder="First name" /></div>
+          <div class="fg"><label>Last Name</label><input class="fi" id="o-ln" type="text" placeholder="Last name" /></div>
+        </div>
+        <div class="fg"><label>Email</label><input class="fi" id="o-em" type="email" placeholder="your@email.com" /></div>
+        <div class="fg"><label>Address</label><input class="fi" id="o-ad" type="text" placeholder="Street address" /></div>
+        <div class="frow">
+          <div class="fg"><label>City</label><input class="fi" id="o-ci" type="text" placeholder="City" /></div>
+          <div class="fg"><label>PIN Code</label><input class="fi" id="o-pi" type="text" placeholder="160001" /></div>
+        </div>
+        <div class="fg" style="margin-top:16px"><label>Card Number</label><input class="fi" id="o-cn" type="text" placeholder="4111 1111 1111 1111" maxlength="19" oninput="fmtCard(this)" /></div>
+        <div class="frow">
+          <div class="fg"><label>Expiry</label><input class="fi" id="o-ex" type="text" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)" /></div>
+          <div class="fg"><label>CVV</label><input class="fi" id="o-cv" type="password" placeholder="•••" maxlength="3" /></div>
+        </div>
+        <button class="btn-gold" style="width:100%;margin-top:8px;padding:14px" onclick="placeOrder()">Place Order →</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/products.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/nav.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Only show products that have a sale price (p.old != null)
+      var saleItems = PRODUCTS.filter(function(p) { return p.old !== null; });
+      document.getElementById('sale-grid').innerHTML = saleItems.map(function(p, i) {
+        return cardHTML(p, i * 0.04);
+      }).join('');
+    });
+  </script>
+</body>
+</html>
